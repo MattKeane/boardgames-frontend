@@ -9,7 +9,7 @@ div.login-form {
   width: 50%;
   background-color: #4a148c;
   color: white;
-  box-shadow: 5px 5px 10px black;
+  box-shadow: 5px 5px 5px black;
   border-radius: 5px;
   margin: 0 auto;
   padding: 0 0 10px;
@@ -30,3 +30,23 @@ div.login-form form {
   margin: 10px;
 }
 
+div.register-form {
+  width: 50%;
+  background-color: #32cb00;
+  color: white;
+  box-shadow: 5px 5px 5px black;
+  border-radius: 5px;
+  margin: 0 auto;
+  padding: 0 0 10px;
+}
+
+div.register-form header {
+  margin: 0;
+  background-color: #1faa00;
+  text-align: center;
+  border-radius: 5px;
+}
+
+div.register-form div {
+  margin: 5px;
+}
