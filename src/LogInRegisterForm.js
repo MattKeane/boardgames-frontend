@@ -7,7 +7,11 @@ export default class LogInRegisterForm extends Component {
 		super(props)
 
 		this.state = {
-			register: false
+			register: false,
+			username: "",
+			email: "",
+			password: "",
+			verifyPassword: ""
 		}
 	}
 
@@ -17,15 +21,33 @@ export default class LogInRegisterForm extends Component {
 		})
 	}
 
+	handleChange = (e) => {
+		this.setState({
+			[e.target.name]: e.target.value
+		})
+	}
+
 	render() {
 		return (
 			<React.Fragment>
 				{
 					this.state.register 
 						?
-						<RegisterForm toggleRegister={this.toggleRegister}/>
+						<RegisterForm 
+							toggleRegister={this.toggleRegister}
+							username={this.state.username}
+							email={this.state.email}
+							password={this.state.password}
+							verifyPassword={this.state.verifyPassword}
+							handleChange={this.handleChange}
+						/>
 						:
-						<LogInForm toggleRegister={this.toggleRegister}/>
+						<LogInForm 
+							toggleRegister={this.toggleRegister}
+							email={this.state.email}
+							password={this.state.password}
+							handleChange={this.handleChange}
+						/>
 				}
 			</React.Fragment>
 		)

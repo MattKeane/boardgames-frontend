@@ -9,14 +9,8 @@ export default class RegisterForm extends Component {
 			email: "",
 			username: "",
 			password: "",
-			verifyPassword: ""
+			verifyPassword: "",
 		}
-	}
-
-	handleChange = (e) => {
-		this.setState({
-			[e.target.name]: e.target.value
-		})
 	}
 
 	render() {
@@ -33,8 +27,8 @@ export default class RegisterForm extends Component {
 								label="Email"
 								placeholder="Enter Email"
 								name="email"
-								value={this.state.email}
-								onChange={this.handleChange}
+								value={this.props.email}
+								onChange={this.props.handleChange}
 							/>
 						</Form.Field>
 						<Form.Field>
@@ -43,8 +37,8 @@ export default class RegisterForm extends Component {
 								label="Username"
 								placeholder="Choose Username"
 								name="username"
-								value={this.state.username}
-								onChange={this.handleChange}
+								value={this.props.username}
+								onChange={this.props.handleChange}
 							/>
 						</Form.Field>
 						<Form.Field>
@@ -53,8 +47,8 @@ export default class RegisterForm extends Component {
 								type="password"
 								label="Password"
 								name="password"
-								value={this.state.password}
-								onChange={this.handleChange}
+								value={this.props.password}
+								onChange={this.props.handleChange}
 							/>
 						</Form.Field>
 						<Form.Field>
@@ -63,14 +57,14 @@ export default class RegisterForm extends Component {
 								type="password"
 								label="Re-enter Password"
 								name="verifyPassword"
-								value={this.state.verifyPassword}
-								onChange={this.handleChange}
+								value={this.props.verifyPassword}
+								onChange={this.props.handleChange}
 							/>
 						</Form.Field>
 						<Form.Field>
 							<Checkbox
 								name="publisher"
-								label="I am a publisher"								
+								label="I am a publisher"						
 							/>
 						</Form.Field>
 						<div>

@@ -14,11 +14,12 @@ export default class LogInForm extends Component {
 					<Form>
 						<Form.Field>
 							<Input
-								inverted
-								
+								inverted								
 								label="Email"
 								placeholder="Enter Email"
 								name="email"
+								value={this.props.email}
+								onChange={this.props.handleChange}
 							/>
 						</Form.Field>
 						<Form.Field>
@@ -27,6 +28,8 @@ export default class LogInForm extends Component {
 								type="password"
 								label="Password"
 								name="password"
+								value={this.props.password}
+								onChange={this.props.handleChange}
 							/>
 						</Form.Field>
 						<div>
