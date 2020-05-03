@@ -2,6 +2,23 @@ import React, { Component } from "react"
 import { Form, Input, Button, Checkbox } from "semantic-ui-react"
 
 export default class RegisterForm extends Component {
+	constructor(props) {
+		super(props)
+
+		this.state = {
+			email: "",
+			username: "",
+			password: "",
+			verifyPassword: ""
+		}
+	}
+
+	handleChange = (e) => {
+		this.setState({
+			[e.target.name]: e.target.value
+		})
+	}
+
 	render() {
 		return (
 			<React.Fragment>
@@ -12,45 +29,48 @@ export default class RegisterForm extends Component {
 					<Form>
 						<Form.Field>
 							<Input
-								inverted
-								
+								inverted								
 								label="Email"
 								placeholder="Enter Email"
 								name="email"
+								value={this.state.email}
+								onChange={this.handleChange}
 							/>
 						</Form.Field>
 						<Form.Field>
 							<Input
-								inverted
-								fluid
+								inverted					
 								label="Username"
 								placeholder="Choose Username"
 								name="username"
+								value={this.state.username}
+								onChange={this.handleChange}
 							/>
 						</Form.Field>
 						<Form.Field>
 							<Input
-								inverted
-								fluid
+								inverted								
 								type="password"
 								label="Password"
 								name="password"
+								value={this.state.password}
+								onChange={this.handleChange}
 							/>
 						</Form.Field>
 						<Form.Field>
 							<Input
-								inverted
-								fluid
+								inverted								
 								type="password"
 								label="Re-enter Password"
-								name="verify-password"
+								name="verifyPassword"
+								value={this.state.verifyPassword}
+								onChange={this.handleChange}
 							/>
 						</Form.Field>
 						<Form.Field>
 							<Checkbox
 								name="publisher"
-								label="I am a publisher"
-								color="white"
+								label="I am a publisher"								
 							/>
 						</Form.Field>
 						<div>
