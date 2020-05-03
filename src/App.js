@@ -5,11 +5,19 @@ import LogInRegisterForm from "./LogInRegisterForm"
 
 class App extends Component {
   
+  register = (registrationInfo) => {
+    if (registrationInfo.password === registrationInfo.verifyPassword) {
+      console.log("passwords match")
+    } else {
+      console.log("passwords don't match")
+    }
+  }
 
   render() {
     return (
       <div className="App">
-        <LogInRegisterForm />
+        <LogInRegisterForm
+          register={this.register} />
       </div>
     );
   }

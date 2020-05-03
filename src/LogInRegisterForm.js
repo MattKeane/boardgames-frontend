@@ -35,7 +35,7 @@ export default class LogInRegisterForm extends Component {
 	}
 
 	register = () => {
-		console.log(this.state)
+		this.props.register(this.state)
 	}
 
 	render() {

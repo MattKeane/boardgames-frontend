@@ -15,7 +15,8 @@ export default class RegisterForm extends Component {
 					<Form onSubmit={this.props.register}>
 						<Form.Field>
 							<Input
-								inverted								
+								inverted
+								type="email"								
 								label="Email"
 								placeholder="Enter Email"
 								name="email"
