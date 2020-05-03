@@ -4,10 +4,38 @@ import './App.css';
 import LogInRegisterForm from "./LogInRegisterForm"
 
 class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      loggedIn: false
+    }
+  }
   
-  register = (registrationInfo) => {
+  register = async (registrationInfo) => {
     if (registrationInfo.password === registrationInfo.verifyPassword) {
-      console.log("passwords match")
+      const url = process.env.REACT_APP_API_URL + "/api/v1/accounts/register"
+      try {
+        const requestBody = registrationInfo
+        if (requestBody.publisher) {
+          requestBody.role = "publisher"
+        } else {
+          requestBody.role = "user"
+        }
+        console.log(JSON.stringify(requestBody))
+        const registerResponse = await fetch(url, {
+          credentials: "include",
+          method: "POST",
+          body: JSON.stringify(requestBody),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        console.log(registerResponse)
+        const registerJson =  await registerResponse.json()
+        console.log(registerJson)
+      } catch (err) {
+        console.log(err)
+      }
     } else {
       console.log("passwords don't match")
     }
@@ -16,8 +44,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <LogInRegisterForm
-          register={this.register} />
+        {this.state.loggedIn
+          ?
+          <p>Logged In</p>
+          :
+          <LogInRegisterForm
+            register={this.register} />
+        }
       </div>
     );
   }
