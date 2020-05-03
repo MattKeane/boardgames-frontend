@@ -10,34 +10,42 @@ export default class RegisterForm extends Component {
 						<h2>Register</h2>
 					</header>
 					<Form>
-						<Input
-							inverted
-							fluid
-							label="Email"
-							placeholder="Enter Email"
-							name="email"
-						/>
-						<Input
-							inverted
-							fluid
-							label="Username"
-							placeholder="Choose Username"
-							name="username"
-						/>
-						<Input
-							inverted
-							fluid
-							type="password"
-							label="Password"
-							name="password"
-						/>
-						<Input
-							inverted
-							fluid
-							type="password"
-							label="Re-enter Password"
-							name="verify-password"
-						/>
+						<Form.Field>
+							<Input
+								inverted
+								
+								label="Email"
+								placeholder="Enter Email"
+								name="email"
+							/>
+						</Form.Field>
+						<Form.Field>
+							<Input
+								inverted
+								fluid
+								label="Username"
+								placeholder="Choose Username"
+								name="username"
+							/>
+						</Form.Field>
+						<Form.Field>
+							<Input
+								inverted
+								fluid
+								type="password"
+								label="Password"
+								name="password"
+							/>
+						</Form.Field>
+						<Form.Field>
+							<Input
+								inverted
+								fluid
+								type="password"
+								label="Re-enter Password"
+								name="verify-password"
+							/>
+						</Form.Field>
 						<Form.Field>
 							<Checkbox
 								name="publisher"
@@ -51,6 +59,7 @@ export default class RegisterForm extends Component {
 							</Button>
 						</div>
 					</Form>
+					<p onClick={this.props.toggleRegister}>Already have an account? Sign in!</p>
 				</div>
 			</React.Fragment>
 		)

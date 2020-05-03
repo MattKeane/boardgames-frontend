@@ -11,10 +11,22 @@ export default class LogInRegisterForm extends Component {
 		}
 	}
 
+	toggleRegister = () => {
+		this.setState({
+			register: !this.state.register
+		})
+	}
+
 	render() {
 		return (
 			<React.Fragment>
-				<RegisterForm />
+				{
+					this.state.register 
+						?
+						<RegisterForm toggleRegister={this.toggleRegister}/>
+						:
+						<LogInForm toggleRegister={this.toggleRegister}/>
+				}
 			</React.Fragment>
 		)
 	}
