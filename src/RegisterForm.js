@@ -2,16 +2,8 @@ import React, { Component } from "react"
 import { Form, Input, Button, Checkbox } from "semantic-ui-react"
 
 export default class RegisterForm extends Component {
-	constructor(props) {
-		super(props)
+	
 
-		this.state = {
-			email: "",
-			username: "",
-			password: "",
-			verifyPassword: "",
-		}
-	}
 
 	render() {
 		return (
@@ -20,7 +12,7 @@ export default class RegisterForm extends Component {
 					<header>
 						<h2>Register</h2>
 					</header>
-					<Form>
+					<Form onSubmit={this.props.register}>
 						<Form.Field>
 							<Input
 								inverted								
@@ -64,7 +56,8 @@ export default class RegisterForm extends Component {
 						<Form.Field>
 							<Checkbox
 								name="publisher"
-								label="I am a publisher"						
+								label="I am a publisher"
+								onChange={this.props.onCheck}						
 							/>
 						</Form.Field>
 						<div>

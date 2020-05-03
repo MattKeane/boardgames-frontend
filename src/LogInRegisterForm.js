@@ -11,7 +11,8 @@ export default class LogInRegisterForm extends Component {
 			username: "",
 			email: "",
 			password: "",
-			verifyPassword: ""
+			verifyPassword: "",
+			publisher: false
 		}
 	}
 
@@ -21,10 +22,20 @@ export default class LogInRegisterForm extends Component {
 		})
 	}
 
+	togglePublisher = () => {
+		this.setState({
+			publisher: !this.state.publisher
+		})
+	}
+
 	handleChange = (e) => {
 		this.setState({
 			[e.target.name]: e.target.value
 		})
+	}
+
+	register = () => {
+		console.log(this.state)
 	}
 
 	render() {
@@ -40,6 +51,8 @@ export default class LogInRegisterForm extends Component {
 							password={this.state.password}
 							verifyPassword={this.state.verifyPassword}
 							handleChange={this.handleChange}
+							handleCheck={this.togglePublisher}
+							register={this.register}
 						/>
 						:
 						<LogInForm 
