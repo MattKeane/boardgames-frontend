@@ -30,9 +30,12 @@ class App extends Component {
             "Content-Type": "application/json"
           }
         })
-        console.log(registerResponse)
         const registerJson =  await registerResponse.json()
-        console.log(registerJson)
+        if (registerJson.status === 201) {
+          this.setState({
+            loggedIn: true
+          })
+        }
       } catch (err) {
         console.log(err)
       }
