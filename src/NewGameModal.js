@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { Modal, Header, Form, Dropdown } from "semantic-ui-react"
+import { Modal, Header, Form, Dropdown, Input, Button } from "semantic-ui-react"
 
 export default class NewGameModal extends Component {
 	constructor(props) {
@@ -7,7 +7,10 @@ export default class NewGameModal extends Component {
 
 		this.state = {
 			genreOptions: [],
-			genres: []
+			genres: [],
+			title: "",
+			min_players: null,
+			max_players: null
 		}
 	}
 
@@ -37,8 +40,18 @@ export default class NewGameModal extends Component {
 
 	handleChange = (e, { value }) => {
 		this.setState({
-			genres: value
+			[e.target.name]: value
 		})
+	}
+
+	handleAddition = (e, { value }) => {
+		this.setState({
+			genreOptions: [{text: value, value }, ...this.state.genreOptions]
+		})
+	}
+
+	handleSubmit = () => {
+		this.props.addGame(this.state)
 	}
 
 	render() {
@@ -47,16 +60,49 @@ export default class NewGameModal extends Component {
 				<Header>
 					<h3>Add a Game</h3>
 				</Header>
-				<Form>
-					<Dropdown
-						options={this.state.genreOptions}
-						placeholder="Choose Genres"
-						search
-						selection
-						multiple
-						allowAdditions
-						onChange={this.handleChange}
-					/>
+				<Form onSubmit={this.handleSubmit}>
+					<Form.Field>
+						<Input
+							label="Game Title"
+							type="text"
+							name="title"
+							value={this.state.title}
+							placeholder="Enter Game Title"
+							onChange={this.handleChange}
+						/>
+					</Form.Field>
+					<Form.Field>
+						<Input
+							label="Minimum Number of Players"
+							type="number"
+							name="min_players"
+							value={this.state.min_players}
+							onChange={this.handleChange}
+						/>
+					</Form.Field>
+					<Form.Field>
+						<Input
+							label="Maximum Number of Players"
+							type="number"
+							name="max_players"
+							value={this.state.max_players}
+							onChange={this.handleChange}
+						/>
+					</Form.Field>
+					<Form.Field>
+						<Dropdown
+							name="genres"
+							options={this.state.genreOptions}
+							placeholder="Choose Genres"
+							search
+							selection
+							multiple
+							allowAdditions
+							onChange={this.handleChange}
+							onAddItem={this.handleAddition}
+						/>
+					</Form.Field>
+					<Button>Add Game</Button>
 				</Form>
 			</Modal>
 		)
