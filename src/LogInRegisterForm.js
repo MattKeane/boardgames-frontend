@@ -12,7 +12,7 @@ export default class LogInRegisterForm extends Component {
 			email: "",
 			password: "",
 			verifyPassword: "",
-			publisher: false
+			role: "user"
 		}
 	}
 
@@ -23,9 +23,15 @@ export default class LogInRegisterForm extends Component {
 	}
 
 	togglePublisher = () => {
-		this.setState({
-			publisher: !this.state.publisher
-		})
+		if (this.state.role === "user") {
+			this.setState({
+				role: "publisher"
+			})
+		} else {
+			this.setState({
+				role: "user"
+			})
+		}
 	}
 
 	handleChange = (e) => {
@@ -58,6 +64,7 @@ export default class LogInRegisterForm extends Component {
 							handleCheck={this.togglePublisher}
 							register={this.register}
 							message={this.props.message}
+							onCheck={this.togglePublisher}
 						/>
 						:
 						<LogInForm 

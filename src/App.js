@@ -21,11 +21,6 @@ class App extends Component {
       const url = process.env.REACT_APP_API_URL + "/api/v1/accounts/register"
       const requestBody = registrationInfo
       try {
-        if (requestBody.publisher) {
-          requestBody.role = "publisher"
-        } else {
-          requestBody.role = "user"
-        }
         const registerResponse = await fetch(url, {
           credentials: "include",
           method: "POST",
