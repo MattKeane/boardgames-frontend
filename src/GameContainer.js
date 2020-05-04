@@ -40,8 +40,23 @@ export default class GameContainer extends Component {
 		})
 	}
 
-	addGame = (game) => {
-		console.log(game)
+	addGame = async (game) => {
+		try {
+			const url = process.env.REACT_APP_API_URL + "/api/v1/games/"
+			const addGameResponse = await fetch(url, {
+				credentials: "include",
+				method: "POST",
+				body: JSON.stringify(game),
+				headers: {
+					"Content-Type": "application/json"
+				}
+			})
+			const addGameJson = await addGameResponse.json()
+			console.log(addGameJson)
+			this.closeNewGameModal()
+		} catch (err) {
+			console.log(err)
+		}
 	}
 
 
