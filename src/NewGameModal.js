@@ -43,6 +43,11 @@ export default class NewGameModal extends Component {
 				<Form>
 					<Dropdown
 						options={this.state.genreOptions}
+						placeholder="Choose Genres"
+						search
+						selection
+						multiple
+						allowAdditions
 					/>
 				</Form>
 			</Modal>

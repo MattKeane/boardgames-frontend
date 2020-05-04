@@ -19,6 +19,7 @@ class App extends Component {
   register = async (registrationInfo) => {
     if (registrationInfo.password === registrationInfo.verifyPassword) {
       const url = process.env.REACT_APP_API_URL + "/api/v1/accounts/register"
+      console.log(url)
       const requestBody = registrationInfo
       try {
         const registerResponse = await fetch(url, {
