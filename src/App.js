@@ -7,21 +7,21 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      loggedIn: false
+      loggedIn: false,
+      message: ""
     }
   }
   
   register = async (registrationInfo) => {
     if (registrationInfo.password === registrationInfo.verifyPassword) {
       const url = process.env.REACT_APP_API_URL + "/api/v1/accounts/register"
+      const requestBody = registrationInfo
       try {
-        const requestBody = registrationInfo
         if (requestBody.publisher) {
           requestBody.role = "publisher"
         } else {
           requestBody.role = "user"
         }
-        console.log(JSON.stringify(requestBody))
         const registerResponse = await fetch(url, {
           credentials: "include",
           method: "POST",
@@ -35,6 +35,10 @@ class App extends Component {
           this.setState({
             loggedIn: true
           })
+        } else {
+          this.setState({
+            message: registerJson.message
+          })
         }
       } catch (err) {
         console.log(err)
@@ -42,6 +46,10 @@ class App extends Component {
     } else {
       console.log("passwords don't match")
     }
+  }
+
+  logIn = async (logInInfo) => {
+    console.log("Log in")
   }
 
   render() {
@@ -52,7 +60,9 @@ class App extends Component {
           <p>Logged In</p>
           :
           <LogInRegisterForm
-            register={this.register} />
+            register={this.register}
+            message={this.state.message}
+            logIn={this.logIn} />
         }
       </div>
     );

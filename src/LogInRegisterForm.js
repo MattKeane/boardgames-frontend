@@ -53,6 +53,7 @@ export default class LogInRegisterForm extends Component {
 							handleChange={this.handleChange}
 							handleCheck={this.togglePublisher}
 							register={this.register}
+							message={this.props.message}
 						/>
 						:
 						<LogInForm 
@@ -60,6 +61,8 @@ export default class LogInRegisterForm extends Component {
 							email={this.state.email}
 							password={this.state.password}
 							handleChange={this.handleChange}
+							message={this.props.message}
+							logIn={this.props.logIn}
 						/>
 				}
 			</React.Fragment>

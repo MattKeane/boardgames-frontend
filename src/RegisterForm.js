@@ -12,6 +12,7 @@ export default class RegisterForm extends Component {
 					<header>
 						<h2>Register</h2>
 					</header>
+					<div>{this.props.message}</div>
 					<Form onSubmit={this.props.register}>
 						<Form.Field>
 							<Input

@@ -11,7 +11,7 @@ export default class LogInForm extends Component {
 					<header>
 						<h2>Sign In</h2>
 					</header>
-					<Form>
+					<Form onSubmit={this.props.logIn}>
 						<Form.Field>
 							<Input
 								inverted								
