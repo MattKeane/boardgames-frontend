@@ -6,7 +6,8 @@ export default class NewGameModal extends Component {
 		super(props)
 
 		this.state = {
-			genreOptions: []
+			genreOptions: [],
+			genres: []
 		}
 	}
 
@@ -34,6 +35,12 @@ export default class NewGameModal extends Component {
 		this.getGenres()
 	}
 
+	handleChange = (e, { value }) => {
+		this.setState({
+			genres: value
+		})
+	}
+
 	render() {
 		return (
 			<Modal open={true} closeIcon={true} onClose={this.props.closeModal}>
@@ -48,6 +55,7 @@ export default class NewGameModal extends Component {
 						selection
 						multiple
 						allowAdditions
+						onChange={this.handleChange}
 					/>
 				</Form>
 			</Modal>
