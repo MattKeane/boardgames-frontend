@@ -35,6 +35,7 @@ export default class GameContainer extends Component {
 			<React.Fragment>
 				<NavBar
 					logOut={this.props.logOut}
+					role={this.props.currentUser.role}
 				/>
 				<ListGames 
 					games={this.state.games}

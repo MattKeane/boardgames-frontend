@@ -7,6 +7,13 @@ export default class NavBar extends Component {
 		return (
 			<div className="nav-bar">
 				<Menu pointing secondary>
+					{
+						this.props.role === "publisher"
+						&&
+						<Menu.Item
+							name="Add Game"
+						/>
+					}
 					<Menu.Menu position="right">
 						<Menu.Item
 							name="Logout"
