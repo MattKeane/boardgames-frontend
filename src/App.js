@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import "semantic-ui-css/semantic.min.css"
 import './App.css';
 import LogInRegisterForm from "./LogInRegisterForm"
+import GameContainer from "./GameContainer"
 
 class App extends Component {
   constructor(props) {
@@ -86,7 +87,7 @@ class App extends Component {
       <div className="App">
         {this.state.loggedIn
           ?
-          <p>Logged In as {this.state.currentUser.username}</p>
+          <GameContainer currentUser={this.state.currentUser} />
           :
           <LogInRegisterForm
             register={this.register}
