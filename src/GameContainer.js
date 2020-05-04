@@ -1,13 +1,15 @@
 import React, { Component } from "react"
 import NavBar from "./NavBar"
 import ListGames from "./ListGames"
+import NewGameModal from "./NewGameModal"
 
 export default class GameContainer extends Component {
 	constructor(props) {
 		super(props)
 
 		this.state = {
-			games: []
+			games: [],
+			addingGame: false
 		}
 	}
 
@@ -26,6 +28,14 @@ export default class GameContainer extends Component {
 		}
 	}
 
+	openNewGameModal = () => {
+		this.setState({
+			addingGame: true
+		})
+	}
+
+
+
 	componentDidMount() {
 		this.getGames()
 	}
@@ -36,10 +46,16 @@ export default class GameContainer extends Component {
 				<NavBar
 					logOut={this.props.logOut}
 					role={this.props.currentUser.role}
+					openNewGameModal = {this.openNewGameModal}
 				/>
 				<ListGames 
 					games={this.state.games}
 				/>
+				{
+					this.state.addingGame
+					&&
+					<NewGameModal />
+				}
 			</React.Fragment>
 		)
 	}

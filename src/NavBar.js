@@ -12,6 +12,7 @@ export default class NavBar extends Component {
 						&&
 						<Menu.Item
 							name="Add Game"
+							onClick={this.props.openNewGameModal}
 						/>
 					}
 					<Menu.Menu position="right">
