@@ -11,6 +11,7 @@ export default class LogInForm extends Component {
 					<header>
 						<h2>Sign In</h2>
 					</header>
+					<div>{this.props.message}</div>
 					<Form onSubmit={this.props.logIn}>
 						<Form.Field>
 							<Input

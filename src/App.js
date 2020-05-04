@@ -8,10 +8,13 @@ class App extends Component {
     super(props)
     this.state = {
       loggedIn: false,
-      message: ""
+      message: "",
+      currentUser: {}
     }
   }
-  
+
+// register 
+
   register = async (registrationInfo) => {
     if (registrationInfo.password === registrationInfo.verifyPassword) {
       const url = process.env.REACT_APP_API_URL + "/api/v1/accounts/register"
@@ -33,7 +36,8 @@ class App extends Component {
         const registerJson =  await registerResponse.json()
         if (registerJson.status === 201) {
           this.setState({
-            loggedIn: true
+            loggedIn: true,
+            currentUser: registerJson.data
           })
         } else {
           this.setState({
@@ -48,8 +52,33 @@ class App extends Component {
     }
   }
 
+// log in
+
   logIn = async (logInInfo) => {
-    console.log("Log in")
+    try {
+      const url = process.env.REACT_APP_API_URL + "/api/v1/accounts/login"
+      const loginResponse = await fetch(url, {
+        credentials: "include",
+        method: "POST",
+        body: JSON.stringify(logInInfo),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      const loginJson = await loginResponse.json()
+      if (loginResponse.status === 200) {
+        this.setState({
+          loggedIn: true,
+          currentUser: loginJson.data
+        })
+      } else {
+        this.setState({
+          message: loginJson.message
+        })
+      }
+    } catch(err) {
+      console.log(err)
+    }
   }
 
   render() {
@@ -57,7 +86,7 @@ class App extends Component {
       <div className="App">
         {this.state.loggedIn
           ?
-          <p>Logged In</p>
+          <p>Logged In as {this.state.currentUser.username}</p>
           :
           <LogInRegisterForm
             register={this.register}

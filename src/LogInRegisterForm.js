@@ -38,6 +38,10 @@ export default class LogInRegisterForm extends Component {
 		this.props.register(this.state)
 	}
 
+	logIn = () => {
+		this.props.logIn(this.state)
+	}
+
 	render() {
 		return (
 			<React.Fragment>
@@ -62,7 +66,7 @@ export default class LogInRegisterForm extends Component {
 							password={this.state.password}
 							handleChange={this.handleChange}
 							message={this.props.message}
-							logIn={this.props.logIn}
+							logIn={this.logIn}
 						/>
 				}
 			</React.Fragment>
