@@ -14,6 +14,13 @@ class App extends Component {
     }
   }
 
+// 
+  setMessage = (message) => {
+    this.setState({
+      message: message
+    })
+  }
+
 // register 
 
   register = async (registrationInfo) => {
@@ -104,7 +111,8 @@ class App extends Component {
           ?
           <GameContainer 
             currentUser={this.state.currentUser}
-            logOut={this.logOut} />
+            logOut={this.logOut}
+            setMessage={this.setMessage} />
           :
           <LogInRegisterForm
             register={this.register}

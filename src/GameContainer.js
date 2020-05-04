@@ -52,8 +52,14 @@ export default class GameContainer extends Component {
 				}
 			})
 			const addGameJson = await addGameResponse.json()
-			console.log(addGameJson)
-			this.closeNewGameModal()
+			if (addGameJson.status === 201) {
+				this.setState({
+					games: [addGameJson.data, ...this.state.games],
+					addingGame: false
+				})
+			} else {
+				this.setMessage(addGameJson.message)
+			}
 		} catch (err) {
 			console.log(err)
 		}
