@@ -82,12 +82,33 @@ class App extends Component {
     }
   }
 
+// log out
+
+  logOut = async () => {
+    try {
+      const url = process.env.REACT_APP_API_URL + "/api/v1/accounts/logout"
+      const logoutResponse = await fetch(url, {
+        credentials: "include"
+      })
+      if (logoutResponse.status === 200) {
+        this.setState({
+          loggedIn: false,
+          currentUser: {}
+        })
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   render() {
     return (
       <div className="App">
         {this.state.loggedIn
           ?
-          <GameContainer currentUser={this.state.currentUser} />
+          <GameContainer 
+            currentUser={this.state.currentUser}
+            logOut={this.logOut} />
           :
           <LogInRegisterForm
             register={this.register}
@@ -98,6 +119,7 @@ class App extends Component {
     );
   }
 }
+
 
 
 export default App;
