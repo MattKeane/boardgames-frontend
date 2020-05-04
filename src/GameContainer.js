@@ -34,6 +34,11 @@ export default class GameContainer extends Component {
 		})
 	}
 
+	closeNewGameModal = () => {
+		this.setState({
+			addingGame: false
+		})
+	}
 
 
 	componentDidMount() {
@@ -54,7 +59,9 @@ export default class GameContainer extends Component {
 				{
 					this.state.addingGame
 					&&
-					<NewGameModal />
+					<NewGameModal
+						closeModal={this.closeNewGameModal} 
+					/>
 				}
 			</React.Fragment>
 		)
