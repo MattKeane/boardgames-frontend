@@ -65,6 +65,10 @@ export default class GameContainer extends Component {
 		}
 	}
 
+	deleteGame = (game) => {
+		console.log("Deleting game " + game)
+	}
+
 
 	componentDidMount() {
 		this.getGames()
@@ -81,6 +85,7 @@ export default class GameContainer extends Component {
 				<ListGames 
 					games={this.state.games}
 					currentUser={this.props.currentUser}
+					deleteGame={this.deleteGame}
 				/>
 				{
 					this.state.addingGame

@@ -23,7 +23,8 @@ export default function ListGames(props) {
 						<Button>
 							Edit
 						</Button>
-						<Button>
+						<Button
+							onClick={ () => props.deleteGame(game.id)}>
 							Delete
 						</Button>
 					</React.Fragment>
