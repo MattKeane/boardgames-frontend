@@ -50,6 +50,7 @@ export default class GameContainer extends Component {
 
 	addGame = async (game) => {
 		try {
+			console.log(game)
 			const url = process.env.REACT_APP_API_URL + "/api/v1/games/"
 			const addGameResponse = await fetch(url, {
 				credentials: "include",

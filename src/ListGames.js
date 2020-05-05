@@ -1,8 +1,15 @@
 import React from "react"
-import { Card, Button } from "semantic-ui-react"
+import { Card, Button, Label } from "semantic-ui-react"
 
 export default function ListGames(props) {
+
+	for (let i = 0; i < props.games.length; i++) {
+		console.log(props.games[i])
+	}
+
 	const games = props.games.map( (game, i) => {
+
+
 		return(
 			<Card key={game.id}>
 				<Card.Content>

@@ -44,6 +44,13 @@ export default class NewGameModal extends Component {
 		})
 	}
 
+	handleGenreChange = (e, { value }) => {
+		this.setState({
+			genres: value
+		})
+	}
+	
+
 	handleAddition = (e, { value }) => {
 		this.setState({
 			genreOptions: [{text: value, value }, ...this.state.genreOptions]
@@ -98,7 +105,7 @@ export default class NewGameModal extends Component {
 							selection
 							multiple
 							allowAdditions
-							onChange={this.handleChange}
+							onChange={this.handleGenreChange}
 							onAddItem={this.handleAddition}
 						/>
 					</Form.Field>
