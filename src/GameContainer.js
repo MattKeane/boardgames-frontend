@@ -73,7 +73,9 @@ export default class GameContainer extends Component {
 				method: "DELETE"
 			})
 			if (deleteResponse.status === 200) {
-				console.log("Game deleted")
+				this.setState({
+					games: this.state.games.filter(game => game.id !== gameId)
+				})
 			}
 		} catch (err) {
 			console.log(err)
