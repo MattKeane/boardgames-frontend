@@ -30,6 +30,10 @@ export default class GameContainer extends Component {
 		}
 	}
 
+	addFave = (gameId) => {
+		console.log("Add fave game " + gameId)
+	}
+
 	openNewGameModal = () => {
 		this.setState({
 			addingGame: true
@@ -140,6 +144,7 @@ export default class GameContainer extends Component {
 					currentUser={this.props.currentUser}
 					deleteGame={this.deleteGame}
 					editGame={this.editGame}
+					addFave={this.addFave}
 				/>
 				{
 					this.state.addingGame

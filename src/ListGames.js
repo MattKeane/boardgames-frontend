@@ -3,10 +3,6 @@ import { Card, Button, Label, Segment, Icon } from "semantic-ui-react"
 
 export default function ListGames(props) {
 
-	for (let i = 0; i < props.games.length; i++) {
-		console.log(props.games[i])
-	}
-
 	const games = props.games.map( (game, i) => {
 
 		const genres = game.genres.map( genre => {
@@ -48,7 +44,10 @@ export default function ListGames(props) {
 				{
 					props.currentUser.role === "user"
 					&&
-					<Button as="div" labelPosition="right">
+					<Button 
+						as="div" 
+						labelPosition="right"
+						onClick={ () => props.addFave(game.id)}>
 						<Button color="red">
 							<Icon name="heart" />
 							Fave
