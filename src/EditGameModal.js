@@ -47,6 +47,12 @@ export default class EditDogModal extends Component {
 		})
 	}
 
+	handleGenreChange = (e, { value }) => {
+		this.setState({
+			genres: value
+		})
+	}
+
 	componentDidMount() {
 		this.getGenres()
 	}
@@ -100,7 +106,7 @@ export default class EditDogModal extends Component {
 							selection
 							multiple
 							allowAdditions
-							onChange={this.handleChange}
+							onChange={this.handleGenreChange}
 							onAddItem={this.handleAddition}
 						/>
 					</Form.Field>
