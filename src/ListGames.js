@@ -1,5 +1,5 @@
 import React from "react"
-import { Card, Button, Label } from "semantic-ui-react"
+import { Card, Button, Label, Segment } from "semantic-ui-react"
 
 export default function ListGames(props) {
 
@@ -9,6 +9,11 @@ export default function ListGames(props) {
 
 	const games = props.games.map( (game, i) => {
 
+		const genres = game.genres.map( genre => {
+			return (
+				<Label key={genre.id} as="a" tag>{genre.name}</Label>
+			)
+		})
 
 		return(
 			<Card key={game.id}>
@@ -21,6 +26,9 @@ export default function ListGames(props) {
 					</Card.Meta>
 					<Card.Description>
 						{game.min_players}-{game.max_players} players
+						<p>
+							{genres}
+						</p>
 					</Card.Description>
 				</Card.Content>
 				{
