@@ -96,6 +96,10 @@ export default class GameContainer extends Component {
 		})
 	}
 
+	updateGame = (game) => {
+		console.log(game)
+	}
+
 
 	componentDidMount() {
 		this.getGames()
@@ -128,6 +132,8 @@ export default class GameContainer extends Component {
 					&&
 					<EditGameModal
 						gameToEdit={this.state.games[this.state.gameToEdit]} 
+						updateGame={this.updateGame}
+						closeModal={this.closeEditGameModal}
 					/>
 				}
 			</React.Fragment>

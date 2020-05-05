@@ -10,6 +10,7 @@ export default class EditDogModal extends Component {
 			min_players: props.gameToEdit.min_players,
 			max_players: props.gameToEdit.max_players,
 			genres: props.gameToEdit.genres,
+			id: props.gameToEdit.id,
 			genreOptions: []
 		}
 	}
@@ -50,9 +51,13 @@ export default class EditDogModal extends Component {
 		this.getGenres()
 	}
 
+	handleSubmit = () => {
+		this.props.updateGame(this.state)
+	}
+
 	render() {
 		return (
-			<Modal open={true} onClose={this.props.closeModal}>
+			<Modal open={true} closeIcon={true} onClose={this.props.closeModal}>
 				<Header>
 					<h3>Edit Game</h3>
 				</Header>
