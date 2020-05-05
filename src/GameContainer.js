@@ -96,8 +96,23 @@ export default class GameContainer extends Component {
 		})
 	}
 
-	updateGame = (game) => {
-		console.log(game)
+	updateGame = async (game) => {
+		try {
+			const url = process.env.REACT_APP_API_URL + "/api/v1/games/" + game.id
+			const editResponse = await fetch(url, {
+				credentials: "include",
+				method: "PUT",
+				body: JSON.stringify(game),
+				headers: {
+					"Content-Type": "application/json"
+				}
+			})
+			if (editResponse.status === 200) {
+				console.log("Game updated")
+			}
+		} catch (err) {
+			console.log(err)
+		}
 	}
 
 
