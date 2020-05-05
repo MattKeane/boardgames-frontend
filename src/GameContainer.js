@@ -65,8 +65,19 @@ export default class GameContainer extends Component {
 		}
 	}
 
-	deleteGame = (game) => {
-		console.log("Deleting game " + game)
+	deleteGame = async (gameId) => {
+		try {
+			const url = process.env.REACT_APP_API_URL + "/api/v1/games/" + gameId
+			const deleteResponse = await fetch(url, {
+				credentials: "include",
+				method: "DELETE"
+			})
+			if (deleteResponse.status === 200) {
+				console.log("Game deleted")
+			}
+		} catch (err) {
+			console.log(err)
+		}
 	}
 
 
