@@ -1,5 +1,5 @@
 import React from "react"
-import { Card, Button, Label, Segment, Icon } from "semantic-ui-react"
+import { Card, Button, Label, Icon } from "semantic-ui-react"
 
 export default function ListGames(props) {
 
@@ -11,7 +11,9 @@ export default function ListGames(props) {
 			)
 		})
 
-		return(
+		const numberOfFaves = game.favorites.length
+
+		return (
 			<Card key={game.id}>
 				<Card.Content>
 					<Card.Header>
@@ -53,7 +55,7 @@ export default function ListGames(props) {
 							Fave
 						</Button>
 						<Label as="a" basic color="red" pointing="left">
-							0
+							{numberOfFaves}
 						</Label>
 					</Button>
 				}

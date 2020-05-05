@@ -30,8 +30,19 @@ export default class GameContainer extends Component {
 		}
 	}
 
-	addFave = (gameId) => {
-		console.log("Add fave game " + gameId)
+	addFave = async (gameId) => {
+		try {
+			const url = process.env.REACT_APP_API_URL + "/api/v1/games/favorite/" + gameId
+			const addFaveResponse = await fetch(url, {
+				credentials: "include",
+				method: "POST"
+			})
+			if (addFaveResponse.status === 200) {
+				console.log("Fave added")
+			}
+		} catch (err) {
+			console.log(err)
+		}
 	}
 
 	openNewGameModal = () => {
