@@ -126,7 +126,9 @@ export default class GameContainer extends Component {
 				{
 					this.state.gameToEdit !== -1
 					&&
-					<EditGameModal />
+					<EditGameModal
+						gameToEdit={this.state.games[this.state.gameToEdit]} 
+					/>
 				}
 			</React.Fragment>
 		)
