@@ -2,7 +2,7 @@ import React from "react"
 import { Card, Button } from "semantic-ui-react"
 
 export default function ListGames(props) {
-	const games = props.games.map(game => {
+	const games = props.games.map( (game, i) => {
 		return(
 			<Card key={game.id}>
 				<Card.Content>
@@ -20,7 +20,8 @@ export default function ListGames(props) {
 					game.publisher.id === props.currentUser.id
 					&&
 					<React.Fragment>
-						<Button>
+						<Button
+							onClick={ () => props.editGame(i)}>
 							Edit
 						</Button>
 						<Button

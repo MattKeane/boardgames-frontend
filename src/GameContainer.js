@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import NavBar from "./NavBar"
 import ListGames from "./ListGames"
 import NewGameModal from "./NewGameModal"
+import EditGameModal from "./EditGameModal"
 
 export default class GameContainer extends Component {
 	constructor(props) {
@@ -9,7 +10,8 @@ export default class GameContainer extends Component {
 
 		this.state = {
 			games: [],
-			addingGame: false
+			addingGame: false,
+			gameToEdit: -1
 		}
 	}
 
@@ -37,6 +39,12 @@ export default class GameContainer extends Component {
 	closeNewGameModal = () => {
 		this.setState({
 			addingGame: false
+		})
+	}
+
+	closeEditGameModal = () => {
+		this.setState({
+			gameToEdit: -1
 		})
 	}
 
@@ -82,6 +90,12 @@ export default class GameContainer extends Component {
 		}
 	}
 
+	editGame = (gameIndex) => {
+		this.setState({
+			gameToEdit: gameIndex
+		})
+	}
+
 
 	componentDidMount() {
 		this.getGames()
@@ -99,6 +113,7 @@ export default class GameContainer extends Component {
 					games={this.state.games}
 					currentUser={this.props.currentUser}
 					deleteGame={this.deleteGame}
+					editGame={this.editGame}
 				/>
 				{
 					this.state.addingGame
@@ -107,6 +122,11 @@ export default class GameContainer extends Component {
 						closeModal={this.closeNewGameModal} 
 						addGame={this.addGame}
 					/>
+				}
+				{
+					this.state.gameToEdit !== -1
+					&&
+					<EditGameModal />
 				}
 			</React.Fragment>
 		)
