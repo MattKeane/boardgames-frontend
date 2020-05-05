@@ -108,7 +108,13 @@ export default class GameContainer extends Component {
 				}
 			})
 			if (editResponse.status === 200) {
-				console.log("Game updated")
+				const editJson = await editResponse.json()
+				const games = this.state.games
+				games.splice(this.state.gameToEdit, 1, editJson.data)
+				this.setState({
+					games: games,
+					gameToEdit: -1
+				})
 			}
 		} catch (err) {
 			console.log(err)
