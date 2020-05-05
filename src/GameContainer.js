@@ -80,6 +80,7 @@ export default class GameContainer extends Component {
 				/>
 				<ListGames 
 					games={this.state.games}
+					currentUser={this.props.currentUser}
 				/>
 				{
 					this.state.addingGame
