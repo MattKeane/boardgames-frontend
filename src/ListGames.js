@@ -1,5 +1,5 @@
 import React from "react"
-import { Card, Button, Label, Segment } from "semantic-ui-react"
+import { Card, Button, Label, Segment, Icon } from "semantic-ui-react"
 
 export default function ListGames(props) {
 
@@ -45,6 +45,20 @@ export default function ListGames(props) {
 						</Button>
 					</React.Fragment>
 				}
+				{
+					props.currentUser.role === "user"
+					&&
+					<Button as="div" labelPosition="right">
+						<Button color="red">
+							<Icon name="heart" />
+							Fave
+						</Button>
+						<Label as="a" basic color="red" pointing="left">
+							0
+						</Label>
+					</Button>
+				}
+
 			</Card>
 		)
 	})
