@@ -52,8 +52,19 @@ export default class GameContainer extends Component {
 		}
 	}
 
-	deleteFave = (gameId) => {
-		console.log("Delete fave " + gameId)
+	deleteFave = async (gameId) => {
+		try {
+			const url = process.env.REACT_APP_API_URL + "/api/v1/games/favorite/" + gameId
+			const deleteFaveResponse = await fetch(url, {
+				credentials: "include",
+				method: "DELETE"
+			})
+			if (deleteFaveResponse.status === 200) {
+				console.log("Fave deleted")
+			}
+		} catch (err) {
+			console.log(err)
+		}
 	}
 
 	openNewGameModal = () => {
