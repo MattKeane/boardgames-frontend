@@ -22,7 +22,7 @@ export default function ListGames(props) {
 
 		const handleFaveClick = () => {
 			if (likers.includes(props.currentUser.id)) {
-				props.deleteFave(game.id)
+				props.deleteFave(game.id, i)
 			} else {
 				props.addFave(game.id, i)
 			}

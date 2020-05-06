@@ -52,7 +52,7 @@ export default class GameContainer extends Component {
 		}
 	}
 
-	deleteFave = async (gameId) => {
+	deleteFave = async (gameId, gameIndex) => {
 		try {
 			const url = process.env.REACT_APP_API_URL + "/api/v1/games/favorite/" + gameId
 			const deleteFaveResponse = await fetch(url, {
@@ -60,7 +60,11 @@ export default class GameContainer extends Component {
 				method: "DELETE"
 			})
 			if (deleteFaveResponse.status === 200) {
-				console.log("Fave deleted")
+				const games = this.state.games
+				games[gameIndex].favorites = games[gameIndex].favorites.filter(favorite => favorite.id !== this.props.currentUser.id)
+				this.setState({
+					games: games
+				})
 			}
 		} catch (err) {
 			console.log(err)
