@@ -13,6 +13,10 @@ export default function ListGames(props) {
 
 		const numberOfFaves = game.favorites.length
 
+		const handleFaveClick = () => {
+			props.addFave(game.id, i)
+		}
+
 		return (
 			<Card key={game.id}>
 				<Card.Content>
@@ -49,7 +53,7 @@ export default function ListGames(props) {
 					<Button 
 						as="div" 
 						labelPosition="right"
-						onClick={ () => props.addFave(game.id)}>
+						onClick={handleFaveClick}>
 						<Button color="red">
 							<Icon name="heart" />
 							Fave

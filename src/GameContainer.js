@@ -30,7 +30,7 @@ export default class GameContainer extends Component {
 		}
 	}
 
-	addFave = async (gameId) => {
+	addFave = async (gameId, gameIndex) => {
 		try {
 			const url = process.env.REACT_APP_API_URL + "/api/v1/games/favorite/" + gameId
 			const addFaveResponse = await fetch(url, {
@@ -38,7 +38,14 @@ export default class GameContainer extends Component {
 				method: "POST"
 			})
 			if (addFaveResponse.status === 200) {
-				console.log("Fave added")
+				const games = this.state.games
+				games[gameIndex].favorites.push(this.props.currentUser)
+				this.setState({
+					games: games
+				})
+			} else {
+				const addFaveJson = await addFaveResponse.json()
+				console.log(addFaveJson.message)
 			}
 		} catch (err) {
 			console.log(err)
@@ -65,7 +72,6 @@ export default class GameContainer extends Component {
 
 	addGame = async (game) => {
 		try {
-			console.log(game)
 			const url = process.env.REACT_APP_API_URL + "/api/v1/games/"
 			const addGameResponse = await fetch(url, {
 				credentials: "include",
