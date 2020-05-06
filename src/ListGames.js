@@ -13,10 +13,6 @@ export default function ListGames(props) {
 
 		const numberOfFaves = game.favorites.length
 
-		const handleFaveClick = () => {
-			props.addFave(game.id, i)
-		}
-
 		const likers = game.favorites.map( (favorite) => favorite.id)
 
 		let faveButtonColor = "grey"
@@ -24,8 +20,14 @@ export default function ListGames(props) {
 			faveButtonColor = "red"
 		}
 
-		console.log(game.favorites)
-		console.log(props.currentUser)
+		const handleFaveClick = () => {
+			if (likers.includes(props.currentUser.id)) {
+				props.deleteFave(game.id)
+			} else {
+				props.addFave(game.id, i)
+			}
+		}
+
 
 		return (
 			<Card key={game.id}>
