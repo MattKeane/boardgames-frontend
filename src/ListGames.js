@@ -17,6 +17,16 @@ export default function ListGames(props) {
 			props.addFave(game.id, i)
 		}
 
+		const likers = game.favorites.map( (favorite) => favorite.id)
+
+		let faveButtonColor = "grey"
+		if (likers.includes(props.currentUser.id)) {
+			faveButtonColor = "red"
+		}
+
+		console.log(game.favorites)
+		console.log(props.currentUser)
+
 		return (
 			<Card key={game.id}>
 				<Card.Content>
@@ -54,11 +64,11 @@ export default function ListGames(props) {
 						as="div" 
 						labelPosition="right"
 						onClick={handleFaveClick}>
-						<Button color="red">
+						<Button color={faveButtonColor}>
 							<Icon name="heart" />
 							Fave
 						</Button>
-						<Label as="a" basic color="red" pointing="left">
+						<Label as="a" basic color={faveButtonColor} pointing="left">
 							{numberOfFaves}
 						</Label>
 					</Button>
