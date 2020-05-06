@@ -30,7 +30,7 @@ export default function ListGames(props) {
 
 
 		return (
-			<Card key={game.id}>
+			<Card key={game.id} color="purple" inverted>
 				<Card.Content>
 					<Card.Header>
 						{game.title}
@@ -48,7 +48,7 @@ export default function ListGames(props) {
 				{
 					game.publisher.id === props.currentUser.id
 					&&
-					<React.Fragment>
+					<Button.Group>
 						<Button
 							onClick={ () => props.editGame(i)}>
 							Edit
@@ -57,7 +57,7 @@ export default function ListGames(props) {
 							onClick={ () => props.deleteGame(game.id)}>
 							Delete
 						</Button>
-					</React.Fragment>
+					</Button.Group>
 				}
 				{
 					props.currentUser.role === "user"
@@ -81,8 +81,8 @@ export default function ListGames(props) {
 	})
 
 	return (
-		<React.Fragment>
+		<Card.Group>
 			{games}
-		</React.Fragment>
+		</Card.Group>
 	)
 }

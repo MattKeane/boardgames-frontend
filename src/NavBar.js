@@ -6,7 +6,7 @@ export default class NavBar extends Component {
 	render() {
 		return (
 			<div className="nav-bar">
-				<Menu pointing secondary>
+				<Menu pointing secondary color="purple">
 					{
 						this.props.role === "publisher"
 						&&
