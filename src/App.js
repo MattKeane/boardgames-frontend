@@ -104,6 +104,28 @@ class App extends Component {
     }
   }
 
+  checkLogIn = async () => {
+    try {
+      const url = process.env.REACT_APP_API_URL + "/api/v1/accounts/logged_in_user"
+      const checkLogInResponse = await fetch(url, {
+        credentials: "include"
+      })
+      if (checkLogInResponse.status === 200) {
+        const checkLogInJson = await checkLogInResponse.json()
+        this.setState({
+          loggedIn: true,
+          currentUser: checkLogInJson.data
+        })
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  componentDidMount() {
+    this.checkLogIn()
+  }
+
   render() {
     return (
       <div className="App">
