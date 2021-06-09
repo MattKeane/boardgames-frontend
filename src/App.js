@@ -1,29 +1,15 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import "semantic-ui-css/semantic.min.css"
 import './App.css';
 import LogInRegisterForm from "./LogInRegisterForm"
 import GameContainer from "./GameContainer"
 
-class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      loggedIn: false,
-      message: "",
-      currentUser: {}
-    }
-  }
+function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [message, setMessage] = useState('');
+  const [currentUser, setCurrentUser] = useState({});
 
-// 
-  setMessage = (message) => {
-    this.setState({
-      message: message
-    })
-  }
-
-// register 
-
-  register = async (registrationInfo) => {
+  const register = async (registrationInfo) => {
     if (registrationInfo.password === registrationInfo.verifyPassword) {
       const url = process.env.REACT_APP_API_URL + "/api/v1/accounts/register"
       console.log(url)
@@ -39,14 +25,10 @@ class App extends Component {
         })
         const registerJson =  await registerResponse.json()
         if (registerJson.status === 201) {
-          this.setState({
-            loggedIn: true,
-            currentUser: registerJson.data
-          })
+          setLoggedIn(true);
+          setCurrentUser(registerJson.data);
         } else {
-          this.setState({
-            message: registerJson.message
-          })
+          setMessage(registerJson.message);
         }
       } catch (err) {
         console.log(err)
@@ -58,7 +40,7 @@ class App extends Component {
 
 // log in
 
-  logIn = async (logInInfo) => {
+   const logIn = async (logInInfo) => {
     try {
       const url = process.env.REACT_APP_API_URL + "/api/v1/accounts/login"
       const loginResponse = await fetch(url, {
@@ -71,14 +53,10 @@ class App extends Component {
       })
       const loginJson = await loginResponse.json()
       if (loginResponse.status === 200) {
-        this.setState({
-          loggedIn: true,
-          currentUser: loginJson.data
-        })
+        setLoggedIn(true);
+        setCurrentUser(loginJson.data);
       } else {
-        this.setState({
-          message: loginJson.message
-        })
+        setMessage(loginJson.message);
       }
     } catch(err) {
       console.log(err)
@@ -87,24 +65,22 @@ class App extends Component {
 
 // log out
 
-  logOut = async () => {
+  const logOut = async () => {
     try {
       const url = process.env.REACT_APP_API_URL + "/api/v1/accounts/logout"
       const logoutResponse = await fetch(url, {
         credentials: "include"
       })
       if (logoutResponse.status === 200) {
-        this.setState({
-          loggedIn: false,
-          currentUser: {}
-        })
+        setLoggedIn(false);
+        setCurrentUser({});
       }
     } catch (err) {
       console.log(err)
     }
   }
 
-  checkLogIn = async () => {
+  const checkLogIn = async () => {
     try {
       const url = process.env.REACT_APP_API_URL + "/api/v1/accounts/logged_in_user"
       const checkLogInResponse = await fetch(url, {
@@ -112,38 +88,33 @@ class App extends Component {
       })
       if (checkLogInResponse.status === 200) {
         const checkLogInJson = await checkLogInResponse.json()
-        this.setState({
-          loggedIn: true,
-          currentUser: checkLogInJson.data
-        })
+        setLoggedIn(true);
+        setCurrentUser(checkLogInJson.data);
       }
     } catch (err) {
       console.log(err)
     }
   }
 
-  componentDidMount() {
-    this.checkLogIn()
-  }
+  useEffect(() => checkLogIn(), []);
 
-  render() {
-    return (
-      <div className="App">
-        {this.state.loggedIn
-          ?
-          <GameContainer 
-            currentUser={this.state.currentUser}
-            logOut={this.logOut}
-            setMessage={this.setMessage} />
-          :
-          <LogInRegisterForm
-            register={this.register}
-            message={this.state.message}
-            logIn={this.logIn} />
-        }
-      </div>
-    );
-  }
+  return (
+    <div className="App">
+      {loggedIn
+        ?
+        <GameContainer 
+          currentUser={currentUser}
+          logOut={logOut}
+          setMessage={setMessage} />
+        :
+        <LogInRegisterForm
+          register={register}
+          message={message}
+          logIn={logIn} />
+      }
+    </div>
+  );
+
 }
 
 
