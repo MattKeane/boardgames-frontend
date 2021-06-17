@@ -80,23 +80,24 @@ function App() {
     }
   }
 
-  const checkLogIn = async () => {
-    try {
-      const url = process.env.REACT_APP_API_URL + "/api/v1/accounts/logged_in_user"
-      const checkLogInResponse = await fetch(url, {
-        credentials: "include"
-      })
-      if (checkLogInResponse.status === 200) {
-        const checkLogInJson = await checkLogInResponse.json()
-        setLoggedIn(true);
-        setCurrentUser(checkLogInJson.data);
+  useEffect(() => {
+    const checkLogIn = async () => {
+      try {
+        const url = process.env.REACT_APP_API_URL + "/api/v1/accounts/logged_in_user"
+        const checkLogInResponse = await fetch(url, {
+          credentials: "include"
+        })
+        if (checkLogInResponse.status === 200) {
+          const checkLogInJson = await checkLogInResponse.json()
+          setLoggedIn(true);
+          setCurrentUser(checkLogInJson.data);
+        }
+      } catch (err) {
+        console.log(err)
       }
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  useEffect(() => checkLogIn(), []);
+    };
+    checkLogIn();
+  }, []);
 
   return (
     <div className="App">
