@@ -1,82 +1,114 @@
-import React, { Component } from "react"
+import React, { useState } from "react"
 import LogInForm from "./LogInForm"
 import RegisterForm from "./RegisterForm"
 
-export default class LogInRegisterForm extends Component {
-	constructor(props) {
-		super(props)
+// export default class LogInRegisterForm extends Component {
 
-		this.state = {
-			register: false,
-			username: "",
-			email: "",
-			password: "",
-			verifyPassword: "",
-			role: "user"
-		}
-	}
+export default function LoginRegisterForm(props) {
 
-	toggleRegister = () => {
-		this.setState({
-			register: !this.state.register
+	const [registering, setRegistering] = useState(false);
+	const [username, setUsername] = useState('');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
+	const [verifyPassword, setVerifyPassword] = useState('');
+	const [role, setRole] = useState('user');
+
+	// constructor(props) {
+	// 	super(props)
+
+	// 	this.state = {
+	// 		register: false,
+	// 		username: "",
+	// 		email: "",
+	// 		password: "",
+	// 		verifyPassword: "",
+	// 		role: "user"
+	// 	}
+	// }
+
+	const toggleRegistering = () => {
+		// this.setState({
+		// 	register: !this.state.register
+		// })
+		setRegistering(!registering);
+	};
+
+	const togglePublisher = () => {
+		// if (this.state.role === "user") {
+		// 	this.setState({
+		// 		role: "publisher"
+		// 	})
+		// } else {
+		// 	this.setState({
+		// 		role: "user"
+		// 	})
+		// }
+		const newRole = role === 'user' ? 'publisher' : 'user';
+		setRole(newRole);
+	};
+
+	const handleChange = (e) => {
+		// this.setState({
+		// 	[e.target.name]: e.target.value
+		// })
+		const setStateObj = {
+			register: setRegistering,
+			email: setEmail,
+			password: setPassword,
+			verifyPassword: setVerifyPassword,
+			role: setRole,
+			username: setUsername,
+		};
+		setStateObj[e.target.name](e.target.value);
+	};
+
+	const register = () => {
+		props.register({
+			username,
+			email,
+			password,
+			verifyPassword,
+			role
+		});
+	};
+
+	const logIn = () => {
+		props.logIn({
+			username,
+			email,
+			password,
+			verifyPassword,
 		})
-	}
+	};
 
-	togglePublisher = () => {
-		if (this.state.role === "user") {
-			this.setState({
-				role: "publisher"
-			})
-		} else {
-			this.setState({
-				role: "user"
-			})
-		}
-	}
+	return (
+		<React.Fragment>
+			{
+				registering 
+				?
+				<RegisterForm 
+					toggleRegister={ toggleRegistering }
+					username={ username }
+					email={ email }
+					password={ password }
+					verifyPassword={ verifyPassword }
+					handleChange={ handleChange }
+					handleCheck={ togglePublisher }
+					register={ register }
+					message={ props.message }
+					onCheck={ togglePublisher }
+				/>
+				:
+				<LogInForm 
+					toggleRegister={ toggleRegistering }
+					email={ email }
+					password={ password }
+					handleChange={ handleChange }
+					message={ props.message }
+					logIn={ logIn }
+				/>
+			}
+		</React.Fragment>
+	)
 
-	handleChange = (e) => {
-		this.setState({
-			[e.target.name]: e.target.value
-		})
-	}
-
-	register = () => {
-		this.props.register(this.state)
-	}
-
-	logIn = () => {
-		this.props.logIn(this.state)
-	}
-
-	render() {
-		return (
-			<React.Fragment>
-				{
-					this.state.register 
-						?
-						<RegisterForm 
-							toggleRegister={this.toggleRegister}
-							username={this.state.username}
-							email={this.state.email}
-							password={this.state.password}
-							verifyPassword={this.state.verifyPassword}
-							handleChange={this.handleChange}
-							handleCheck={this.togglePublisher}
-							register={this.register}
-							message={this.props.message}
-							onCheck={this.togglePublisher}
-						/>
-						:
-						<LogInForm 
-							toggleRegister={this.toggleRegister}
-							email={this.state.email}
-							password={this.state.password}
-							handleChange={this.handleChange}
-							message={this.props.message}
-							logIn={this.logIn}
-						/>
-				}
-			</React.Fragment>
-		)
-	}
 }
