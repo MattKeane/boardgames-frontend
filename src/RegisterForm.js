@@ -1,76 +1,73 @@
-import React, { Component } from "react"
+import React from "react"
 import { Form, Input, Button, Checkbox } from "semantic-ui-react"
 
-export default class RegisterForm extends Component {
-	
+// export default class RegisterForm extends Component {
+export default function RegisterForm(props) {
 
-
-	render() {
-		return (
-			<React.Fragment>
-				<div className="register-form">
-					<header>
-						<h2>Register</h2>
-					</header>
-					<div>{this.props.message}</div>
-					<Form onSubmit={this.props.register}>
-						<Form.Field>
-							<Input
-								inverted
-								type="email"								
-								label="Email"
-								placeholder="Enter Email"
-								name="email"
-								value={this.props.email}
-								onChange={this.props.handleChange}
-							/>
-						</Form.Field>
-						<Form.Field>
-							<Input
-								inverted					
-								label="Username"
-								placeholder="Choose Username"
-								name="username"
-								value={this.props.username}
-								onChange={this.props.handleChange}
-							/>
-						</Form.Field>
-						<Form.Field>
-							<Input
-								inverted								
-								type="password"
-								label="Password"
-								name="password"
-								value={this.props.password}
-								onChange={this.props.handleChange}
-							/>
-						</Form.Field>
-						<Form.Field>
-							<Input
-								inverted								
-								type="password"
-								label="Re-enter Password"
-								name="verifyPassword"
-								value={this.props.verifyPassword}
-								onChange={this.props.handleChange}
-							/>
-						</Form.Field>
-						<Form.Field>
-							<Checkbox
-								name="publisher"
-								label="I am a publisher"
-								onChange={this.props.onCheck}						
-							/>
-						</Form.Field>
-						<div>
-							<Button color="purple">
-								Register
-							</Button>
-						</div>
-					</Form>
-					<p onClick={this.props.toggleRegister}>Already have an account? Sign in!</p>
-				</div>
-			</React.Fragment>
-		)
-	}
+	return (
+		<React.Fragment>
+			<div className="register-form">
+				<header>
+					<h2>Register</h2>
+				</header>
+				<div>{ props.message }</div>
+				<Form onSubmit={ props.register }>
+					<Form.Field>
+						<Input
+							inverted
+							type="email"								
+							label="Email"
+							placeholder="Enter Email"
+							name="email"
+							value={ props.email }
+							onChange={ props.handleChange }
+						/>
+					</Form.Field>
+					<Form.Field>
+						<Input
+							inverted					
+							label="Username"
+							placeholder="Choose Username"
+							name="username"
+							value={ props.username }
+							onChange={ props.handleChange }
+						/>
+					</Form.Field>
+					<Form.Field>
+						<Input
+							inverted								
+							type="password"
+							label="Password"
+							name="password"
+							value={ props.password }
+							onChange={ props.handleChange }
+						/>
+					</Form.Field>
+					<Form.Field>
+						<Input
+							inverted								
+							type="password"
+							label="Re-enter Password"
+							name="verifyPassword"
+							value={ props.verifyPassword }
+							onChange={ props.handleChange }
+						/>
+					</Form.Field>
+					<Form.Field>
+						<Checkbox
+							name="publisher"
+							label="I am a publisher"
+							onChange={ props.onCheck }						
+						/>
+					</Form.Field>
+					<div>
+						<Button color="purple">
+							Register
+						</Button>
+					</div>
+				</Form>
+				<p onClick={ props.toggleRegister }>Already have an account? Sign in!</p>
+			</div>
+		</React.Fragment>
+	)
 }
