@@ -1,97 +1,83 @@
-import React, { Component } from "react"
+import React, { useState, useEffect } from "react"
 import NavBar from "./NavBar"
 import ListGames from "./ListGames"
 import NewGameModal from "./NewGameModal"
 import EditGameModal from "./EditGameModal"
 
-export default class GameContainer extends Component {
-	constructor(props) {
-		super(props)
+export default function GameContainer(props) {
 
-		this.state = {
-			games: [],
-			addingGame: false,
-			gameToEdit: -1
-		}
-	}
+	const [games, setGames] = useState([]);
+	const [addingGame, setAddingGame] = useState(false);
+	const [gameToEdit, setGameToEdit] = useState(-1);
 
-	getGames = async () => {
+	useEffect(() => {
+		const getGames = async () => {
+			try {
+				const url = process.env.REACT_APP_API_URL + "/api/v1/games/";
+				const gamesResponse = await fetch(url, {
+					credentials: "include"
+				});
+				const gamesJson = await gamesResponse.json();
+				setGames(gamesJson.data);
+			} catch (err) {
+				console.log(err);
+			}
+		};
+		getGames();
+	}, []);
+
+	const addFave = async (gameId, gameIndex) => {
 		try {
-			const url = process.env.REACT_APP_API_URL + "/api/v1/games/"
-			const gamesResponse = await fetch(url, {
-				credentials: "include"
-			})
-			const gamesJson = await gamesResponse.json()
-			this.setState({
-				games: gamesJson.data
-			})
-		} catch (err) {
-			console.log(err)
-		}
-	}
-
-	addFave = async (gameId, gameIndex) => {
-		try {
-			const url = process.env.REACT_APP_API_URL + "/api/v1/games/favorite/" + gameId
+			const url = process.env.REACT_APP_API_URL + "/api/v1/games/favorite/" + gameId;
 			const addFaveResponse = await fetch(url, {
 				credentials: "include",
 				method: "POST"
-			})
+			});
 			if (addFaveResponse.status === 200) {
-				const games = this.state.games
-				games[gameIndex].favorites.push(this.props.currentUser)
-				this.setState({
-					games: games
-				})
+				const gamesCopy = [...games];
+				gamesCopy[gameIndex].favorites.push(props.currentUser);
+				setGames(gamesCopy);
 			} else {
-				const addFaveJson = await addFaveResponse.json()
-				console.log(addFaveJson.message)
+				const addFaveJson = await addFaveResponse.json();
+				console.log(addFaveJson.message);
 			}
 		} catch (err) {
-			console.log(err)
+			console.log(err);
 		}
-	}
+	};
 
-	deleteFave = async (gameId, gameIndex) => {
+	const deleteFave = async (gameId, gameIndex) => {
 		try {
-			const url = process.env.REACT_APP_API_URL + "/api/v1/games/favorite/" + gameId
+			const url = process.env.REACT_APP_API_URL + "/api/v1/games/favorite/" + gameId;
 			const deleteFaveResponse = await fetch(url, {
 				credentials: "include",
 				method: "DELETE"
-			})
+			});
 			if (deleteFaveResponse.status === 200) {
-				const games = this.state.games
-				games[gameIndex].favorites = games[gameIndex].favorites.filter(favorite => favorite.id !== this.props.currentUser.id)
-				this.setState({
-					games: games
-				})
+				const gamesCopy = [...games];
+				gamesCopy[gameIndex].favorites = games[gameIndex].favorites.filter(favorite => favorite.id !== this.props.currentUser.id);
+				setGames(gamesCopy);
 			}
 		} catch (err) {
-			console.log(err)
+			console.log(err);
 		}
-	}
+	};
 
-	openNewGameModal = () => {
-		this.setState({
-			addingGame: true
-		})
-	}
+	const openNewGameModal = () => {
+		setAddingGame(true);
+	};
 
-	closeNewGameModal = () => {
-		this.setState({
-			addingGame: false
-		})
-	}
+	const closeNewGameModal = () => {
+		setAddingGame(false);
+	};
 
-	closeEditGameModal = () => {
-		this.setState({
-			gameToEdit: -1
-		})
-	}
+	const closeEditGameModal = () => {
+		setGameToEdit(-1);
+	};
 
-	addGame = async (game) => {
+	const addGame = async (game) => {
 		try {
-			const url = process.env.REACT_APP_API_URL + "/api/v1/games/"
+			const url = process.env.REACT_APP_API_URL + "/api/v1/games/";
 			const addGameResponse = await fetch(url, {
 				credentials: "include",
 				method: "POST",
@@ -99,47 +85,42 @@ export default class GameContainer extends Component {
 				headers: {
 					"Content-Type": "application/json"
 				}
-			})
-			const addGameJson = await addGameResponse.json()
+			});
+			const addGameJson = await addGameResponse.json();
 			if (addGameJson.status === 201) {
-				this.setState({
-					games: [addGameJson.data, ...this.state.games],
-					addingGame: false
-				})
+				setGames([addGameJson.data, ...games]);
+				setAddingGame(false);
 			} else {
-				this.setMessage(addGameJson.message)
+				props.setMessage(addGameJson.message);
 			}
 		} catch (err) {
-			console.log(err)
+			console.log(err);
 		}
-	}
+	};
 
-	deleteGame = async (gameId) => {
+	const deleteGame = async (gameId) => {
 		try {
-			const url = process.env.REACT_APP_API_URL + "/api/v1/games/" + gameId
+			const url = process.env.REACT_APP_API_URL + "/api/v1/games/" + gameId;
 			const deleteResponse = await fetch(url, {
 				credentials: "include",
 				method: "DELETE"
-			})
+			});
 			if (deleteResponse.status === 200) {
-				this.setState({
-					games: this.state.games.filter(game => game.id !== gameId)
-				})
+				const updatedGames = games.filter(game => game.id !== gameId);
+				setGames(updatedGames);
 			}
 		} catch (err) {
-			console.log(err)
+			console.log(err);
 		}
-	}
+	};
 
-	editGame = (gameIndex) => {
-		this.setState({
-			gameToEdit: gameIndex
-		})
-	}
+	const editGame = (gameIndex) => {
+		setGameToEdit(gameIndex);
+	};
 
-	updateGame = async (game) => {
+	const updateGame = async (game) => {
 		try {
-			const url = process.env.REACT_APP_API_URL + "/api/v1/games/" + game.id
+			const url = process.env.REACT_APP_API_URL + "/api/v1/games/" + game.id;
 			const editResponse = await fetch(url, {
 				credentials: "include",
 				method: "PUT",
@@ -147,60 +128,51 @@ export default class GameContainer extends Component {
 				headers: {
 					"Content-Type": "application/json"
 				}
-			})
+			});
 			if (editResponse.status === 200) {
 				const editJson = await editResponse.json()
-				const games = this.state.games
-				games.splice(this.state.gameToEdit, 1, editJson.data)
-				this.setState({
-					games: games,
-					gameToEdit: -1
-				})
+				const gamesCopy = [...games];
+				gamesCopy.splice(gameToEdit, 1, editJson.data);
+				setGames(gamesCopy);
+				setGameToEdit(-1);
 			}
 		} catch (err) {
-			console.log(err)
+			console.log(err);
 		}
 	}
 
-
-	componentDidMount() {
-		this.getGames()
-	}
-
-	render () {
-		return (
-			<React.Fragment>
-				<NavBar
-					logOut={this.props.logOut}
-					role={this.props.currentUser.role}
-					openNewGameModal = {this.openNewGameModal}
+	return (
+		<React.Fragment>
+			<NavBar
+				logOut={ props.logOut }
+				role={ props.currentUser.role }
+				openNewGameModal = { openNewGameModal }
+			/>
+			<ListGames 
+				games={ games }
+				currentUser={ props.currentUser }
+				deleteGame={ deleteGame }
+				editGame={ editGame }
+				addFave={ addFave }
+				deleteFave={ deleteFave }
+			/>
+			{
+				addingGame
+				&&
+				<NewGameModal
+					closeModal={ closeNewGameModal } 
+					addGame={ addGame }
 				/>
-				<ListGames 
-					games={this.state.games}
-					currentUser={this.props.currentUser}
-					deleteGame={this.deleteGame}
-					editGame={this.editGame}
-					addFave={this.addFave}
-					deleteFave={this.deleteFave}
+			}
+			{
+				gameToEdit !== -1
+				&&
+				<EditGameModal
+					gameToEdit={ games[gameToEdit] } 
+					updateGame={ updateGame }
+					closeModal={ closeEditGameModal }
 				/>
-				{
-					this.state.addingGame
-					&&
-					<NewGameModal
-						closeModal={this.closeNewGameModal} 
-						addGame={this.addGame}
-					/>
-				}
-				{
-					this.state.gameToEdit !== -1
-					&&
-					<EditGameModal
-						gameToEdit={this.state.games[this.state.gameToEdit]} 
-						updateGame={this.updateGame}
-						closeModal={this.closeEditGameModal}
-					/>
-				}
-			</React.Fragment>
-		)
-	}
+			}
+		</React.Fragment>
+	)
 }
