@@ -1,9 +1,7 @@
 import React from "react"
 import { Menu } from "semantic-ui-react"
 
-// export default class NavBar extends Component {
 export default function NavBar(props) {
-	// render() {
 	return (
 		<div className="nav-bar">
 			<Menu pointing secondary color="purple">
@@ -24,5 +22,4 @@ export default function NavBar(props) {
 			</Menu>
 		</div>
 	)
-	// }
 }
