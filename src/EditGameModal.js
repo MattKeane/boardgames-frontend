@@ -6,7 +6,7 @@ export default function EditDogModal(props) {
 	const [title, setTitle] = useState(props.gameToEdit.title);
 	const [minPlayers, setMinPlayers] = useState(props.gameToEdit.min_players);
 	const [maxPlayers, setMaxPlayers] = useState(props.gameToEdit.max_players);
-	const [genres, setGenres] = useState(props.gameToEdit.genres);
+	const [genres, setGenres] = useState(props.gameToEdit.genres.map(genre => genre.name));
 	const [genreOptions, setGenreOptions] = useState([]);
 
 	// effect to get pre-existing genres
@@ -101,6 +101,7 @@ export default function EditDogModal(props) {
 						selection
 						multiple
 						allowAdditions
+						defaultValue={ genres }
 						onChange={ handleGenreChange }
 						onAddItem={ handleAddition }
 					/>
