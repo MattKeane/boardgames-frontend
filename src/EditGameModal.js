@@ -10,7 +10,7 @@ export default function EditDogModal(props) {
 	const [genreOptions, setGenreOptions] = useState([]);
 
 	// effect to get pre-existing genres
-	
+
 	useEffect(() => {
 		const getGenres = async () => {
 			const url = process.env.REACT_APP_API_URL + "/api/v1/genres/";
@@ -54,8 +54,9 @@ export default function EditDogModal(props) {
 		props.updateGame({
 			min_players: minPlayers,
 			max_players: maxPlayers,
+			id: props.gameToEdit.id,
 			title,
-			genres
+			genres, 
 		});
 	};
 
